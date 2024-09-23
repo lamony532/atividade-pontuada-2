@@ -1,0 +1,27 @@
+def escolher_pagamento:
+print("Escoloha a forma de pagamento:")
+print("1 - À vista (10% de desconto)")
+print("2 - Cartão de crédito (10% de acréscimo)")
+
+opcao = int(input("Digite a opção: "))
+if opcao == 1:
+    desconto = subtotal * 0.10
+    total = subtotal - desconto
+    forma_pagamento = "À vista"
+
+if opcao == 2 
+    acréscimo = subtotal * 0.10
+    total = subtotal + acréscimo
+    forma_pagamento = "Cartão de crédito"
+else:
+    print("Opção inválida.")
+    
+    return forma_pagamento, subtotal, total
+
+def exibir_resultados(pedidos, forma_pagamento, subtotal, total):
+    print("\nResumop de Pedido:")
+    for prato in pedidos:
+        print(f"Prato: {prato[0]}, Preço: R$ {prato[1]:.2f}")
+
+    if forma_pagamento == "À vista":
+        print(f"Subtotal: R$ {subtotal:.2f} | Desconto R$ (subtotal * 0.10:.2f)")
