@@ -13,6 +13,7 @@ import os
 # Limpa o terminal.
 os.system("cls || clear") 
 
+#mostrando menu
 print("""
 pratos do dia:
 1- macarrão(R$18)
@@ -24,12 +25,17 @@ pratos do dia:
 7- camarão á milanesa(R$38)
 
 """)
+
+#declarando variáveis
 precos = []
 pratos = []
+pagamento = 0
+desconto = 0
+total_final = 0
     
-
+#fazendo pedido
 while True:
-    print("faça seu pedido!")
+    print("deseja fazer mais um pedido?")
     codigo_prato = int(input("digite o código do prato ou 0 para finalizar pedido:"))
     
     if codigo_prato == 0:
@@ -61,54 +67,35 @@ while True:
                 print("código de prato inválido, tente novamente")
 
 
-    
-valor_total = sum_precos
+#somando preços   
+valor_total = sum(precos)
 
-
-print(f"valor sem acrésimo ou desconto: R${valor_total}")
-print(f"pratos pedidos: {pratos}")
-
-def calcular_total(total):
+#calculando pagamento
+while True:
     forma_pagamento = input("Escolha a forma de pagamento (1 - À vista, 2 - Cartão de crédito): ")
     if forma_pagamento == '1':
-        desconto = total * 0.10
-        total_final = total - desconto
-        return total_final, desconto, "À vista"
+        desconto = valor_total * 0.10
+        total_final= valor_total - desconto
+        pagamento = "À vista"
+        break
     elif forma_pagamento == '2':
-        acrescimo = total * 0.10
-        total_final = total + acrescimo
-        return total_final, acrescimo, "Cartão de crédito"
+        desconto = valor_total * 0.10
+        total_final = valor_total + desconto
+        pagamento = "Cartão de crédito"
+        break
     else:
-        print("Forma de pagamento inválida. Considerando à vista por padrão.")
-        desconto = total * 0.10
-        total_final = total - desconto
-        return total_final, desconto, "À vista"
+        print("Forma de pagamento inválida. Tente novamente")
 
-# main.py
-from cardapio import exibir_cardapio
-from pedido import fazer_pedido
-from pagamento import calcular_total
+#exibindo dados  
+os.system("cls || clear")
+print("====resumo da compra====")
+print(f"subtotal:: R${valor_total}")
+print(f"pratos pedidos: {pratos}")
+print(f"Forma de pagamento: {pagamento}")
+print(f"Valor do desconto ou acréscimo aplicado: R$ {desconto:.2f}")
+print(f"Valor final a ser pago: R$ {total_final:.2f}")
+    
 
-def main():
-    cardapio = exibir_cardapio()
-    pedido, total = fazer_pedido(cardapio)
-
-    if pedido:
-        print("\nSeu pedido:")
-        for nome, preco in pedido:
-            print(f"{nome} - R$ {preco:.2f}")
-
-        print(f"\nSubtotal: R$ {total:.2f}")
-        total_final, valor_modificacao, forma_pagamento = calcular_total(total)
-
-        print(f"Forma de pagamento: {forma_pagamento}")
-        print(f"Valor do desconto ou acréscimo aplicado: R$ {valor_modificacao:.2f}")
-        print(f"Valor final a ser pago: R$ {total_final:.2f}")
-    else:
-        print("Nenhum pedido foi realizado.")
-
-if __name__ == "__main__":
-    main()
 
 
 
